@@ -10,7 +10,9 @@ initialize, generate new squares, check validity and things like that.
 
 ```python
 >>> import numpy as np
+>>> # from src.latinsq import LatinSquare
 >>> from latinsq import LatinSquare
+
 
 >>> # Initialize from values
 >>> square = np.array([
