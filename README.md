@@ -1,7 +1,8 @@
 
 
 # Latin Squares
-[![Latest PyPI version](https://img.shields.io/pypi/v/ianabc?logo=pypi)](https://pypi.python.org/pypi/ianabc)
+[![Latest PyPI version](https://img.shields.io/pypi/v/latinsq?logo=pypi)](https://pypi.python.org/pypi/ianabc)
+[![GitHub Workflow Status - Test](https://img.shields.io/github/workflow/status/ianabc/latinsq/Run%20Tests?logo=github&label=tests)]
 [![codecov](https://codecov.io/gh/ianabc/latinsq/branch/main/graph/badge.svg?token=SWUG5R4WR6)](https://codecov.io/gh/ianabc/latinsq)
 
 This is a small package for generating and manipulating [Latin
