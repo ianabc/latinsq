@@ -31,8 +31,8 @@ jobs:
           pytest --cov=./ --cov-report=xml
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v2
-        fail_ci_if_error: true
-        files: ./coverage.xml
+        with:
+          files: ./coverage.xml
       - name: Install pypa/build
         run: >-
           python -m
