@@ -22,6 +22,7 @@ class LatinSquare(object):
     Which should be read as the value in rown 1, position 2 has value 3 etc.
     (we will index from 1 throughout)
     """
+
     def __init__(self, n=3, square=None, generate=False):
         if square:
             assert type(square) == np.ndarray
@@ -56,9 +57,8 @@ class LatinSquare(object):
         s = np.arange(self.n, dtype=np.int8)
         s = s * np.ones(self.n, dtype=np.int8)[:, np.newaxis] + 1
 
-        return (
-            np.all(np.sort(self.square, axis=0) == s.T) and
-            np.all(np.sort(self.square, axis=1) == s)
+        return np.all(np.sort(self.square, axis=0) == s.T) and np.all(
+            np.sort(self.square, axis=1) == s
         )
 
     @staticmethod
@@ -69,12 +69,9 @@ class LatinSquare(object):
         n = int(np.sqrt(len(v)))
         square = LatinSquare(n=n)
         assert len(r) == len(c) == len(v)
-        assert len(r) == int(np.sqrt(len(r)))**2
+        assert len(r) == int(np.sqrt(len(r))) ** 2
         square.square = np.ones((n, n), dtype=np.int8) * -1
-        square.square[
-            r.reshape(n, n) - 1,
-            c.reshape(n, n) - 1
-        ] = v.reshape(n, n)
+        square.square[r.reshape(n, n) - 1, c.reshape(n, n) - 1] = v.reshape(n, n)
         return square
 
     def to_incidence_matrix(square):
@@ -108,22 +105,18 @@ class LatinSquare(object):
     def is_incidence_matrix(v):
         """Includes valid and almost incidence matrices"""
         return (
-            (len(v.shape) == 3) and
-            (v.shape[0] == v.shape[1] == v.shape[2]) and
-            np.all((v.sum(axis=0) == np.ones_like(v))) and
-            np.all((v.sum(axis=1) == np.ones_like(v))) and
-            np.all((v.sum(axis=2) == np.ones_like(v)))
+            (len(v.shape) == 3)
+            and (v.shape[0] == v.shape[1] == v.shape[2])
+            and np.all((v.sum(axis=0) == np.ones_like(v)))
+            and np.all((v.sum(axis=1) == np.ones_like(v)))
+            and np.all((v.sum(axis=2) == np.ones_like(v)))
         )
 
     @staticmethod
     def is_valid_incidence_matrix(v):
         """Must be an incidence matrix AND be valid"""
         u = np.unique(v)
-        return (
-            LatinSquare.is_incidence_matrix(v) and
-            (len(u) == 2) and
-            (min(u) == 0)
-        )
+        return LatinSquare.is_incidence_matrix(v) and (len(u) == 2) and (min(u) == 0)
 
     @staticmethod
     def random(n):
@@ -165,9 +158,8 @@ class LatinSquare(object):
         # sampling uniformly and to only yield from the iterator on a valid
         # matrix.
         iterations = 0
-        while (
-            (iterations < n * n * n)
-            or not LatinSquare.is_valid_incidence_matrix(inc_matrix)
+        while (iterations < n * n * n) or not LatinSquare.is_valid_incidence_matrix(
+            inc_matrix
         ):
             iterations = iterations + 1
             if LatinSquare.is_incidence_matrix(inc_matrix):
@@ -183,8 +175,7 @@ class LatinSquare(object):
             else:
                 # Indices of -1 entry
                 i, j, k = np.unravel_index(
-                    np.argmin(inc_matrix, axis=None),
-                    inc_matrix.shape
+                    np.argmin(inc_matrix, axis=None), inc_matrix.shape
                 )
 
                 # Each line passing through (i, j, k) has two 1 values. Find

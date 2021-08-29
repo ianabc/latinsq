@@ -4,11 +4,3 @@ requires = [
   "setuptools>=42",
   "wheel"
 ]
-
-[tool.black]
-target-version = "py39"
-
-[options]
-install_requires =
-    numpy
-packages = find:
