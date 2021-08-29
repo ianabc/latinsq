@@ -29,10 +29,7 @@ class LatinSquare(object):
             assert len(square.shape) == 2
             assert square.shape[0] == square.shape[1]
             self.n = square.shape[0]
-            self.square = square
-        elif generate:
-            self.n = n
-            self.square = LatinSquare.random(self.n)
+            self.square = np.array(square, dtype=np.int8)
         else:
             self.n = n
             self.square = np.zeros((self.n, self.n), dtype=np.int8)
@@ -46,13 +43,6 @@ class LatinSquare(object):
     def __setitem__(self, idx, value):
         self.square[idx[0], idx[1]] = value
 
-    def as_rcv(self):
-        r = np.repeat(np.arange(1, self.n + 1), self.n)
-        c = np.arange(self.n * self.n) % self.n + 1
-        v = np.ravel(self.square)
-
-        return (r, c, v)
-
     def valid(self):
         s = np.arange(self.n, dtype=np.int8)
         s = s * np.ones(self.n, dtype=np.int8)[:, np.newaxis] + 1
@@ -61,11 +51,18 @@ class LatinSquare(object):
             np.sort(self.square, axis=1) == s
         )
 
+    def as_rcv(self):
+        r = np.repeat(np.arange(1, self.n + 1), self.n)
+        c = np.arange(self.n * self.n) % self.n + 1
+        v = np.ravel(self.square)
+
+        return (r, c, v)
+
     @staticmethod
     def from_rcv(r, c, v):
-        r = np.array(r)
-        c = np.array(c)
-        v = np.array(v)
+        r = np.array(r, dtype=np.int8)
+        c = np.array(c, dtype=np.int8)
+        v = np.array(v, dtype=np.int8)
         n = int(np.sqrt(len(v)))
         square = LatinSquare(n=n)
         assert len(r) == len(c) == len(v)
@@ -119,7 +116,7 @@ class LatinSquare(object):
         return LatinSquare.is_incidence_matrix(v) and (len(u) == 2) and (min(u) == 0)
 
     @staticmethod
-    def random(n):
+    def random(n, rng_seed=None):
         """
         Generate a random latin square
 
@@ -130,7 +127,10 @@ class LatinSquare(object):
             square[idx, :] = np.roll(np.arange(1, n + 1), idx)
 
         # Just a shuffle, not really random, result is in same
-        rng = np.random.default_rng()
+        if rng_seed:
+            rng = np.random.default_rng(seed=rng_seed)
+        else:
+            rng = np.random.default_rng()
         square = square[rng.permutation(n)]
         square = square[:, rng.permutation(n)]
 
@@ -195,8 +195,3 @@ class LatinSquare(object):
             inc_matrix[i, j, k1] -= 1
 
         return LatinSquare.from_incidence_matrix(inc_matrix)
-
-
-if __name__ == "__main__":
-    sq = LatinSquare()
-    print("Latin Square: ", sq)

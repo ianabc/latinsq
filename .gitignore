@@ -1,4 +1,5 @@
 *.egg-info
 *.code-workspace
 *.pyc
+.coverage
 dist/
