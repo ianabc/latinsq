@@ -1,11 +1,14 @@
 [build-system]
+build-backend = "setuptools.build_meta"
 requires = [
   "setuptools>=42",
   "wheel"
 ]
-build-backend = "setuptools.build_meta"
+
+[tool.black]
+target-version = "py39"
 
 [options]
-install_requires = [
-  numpy>=1.17
-]
+install_requires =
+    numpy
+packages = find:
