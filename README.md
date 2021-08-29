@@ -2,7 +2,8 @@
 
 This is a small package for generating and manipulating [Latin
 Squares](https://en.wikipedia.org/wiki/Latin_square). It was created to support
-games an other applications for the [Callysto Project](https://callysto.ca).
+games an other applications for the [Callysto Project](https://callysto.ca). It
+hasn't been particularly widely tested or optimized so use at your own risk.
 
 ## Getting Started
 This package implements a `LatinSquare` object with various methods to
