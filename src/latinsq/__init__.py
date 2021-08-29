@@ -1,0 +1,1 @@
+from .latinsq import LatinSquare
