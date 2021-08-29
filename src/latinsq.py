@@ -22,7 +22,7 @@ class LatinSquare(object):
     Which should be read as the value in rown 1, position 2 has value 3 etc.
     (we will index from 1 throughout)
     """
-    def __init__(self, square=None, n=3):
+    def __init__(self, n=3, square=None):
         if square:
             assert type(square) == np.ndarray
             assert len(square.shape) == 2
@@ -42,9 +42,9 @@ class LatinSquare(object):
     def __setitem__(self, idx, value):
         self.square[idx[0], idx[1]] = value
 
-    def to_rcv(self):
+    def as_rcv(self):
         r = np.repeat(np.arange(1, self.n + 1), self.n)
-        c = np.arange(self.n * self.n) % 3 + 1
+        c = np.arange(self.n * self.n) % self.n + 1
         v = np.ravel(self.square)
 
         return (r, c, v)
@@ -58,12 +58,40 @@ class LatinSquare(object):
             np.all(np.sort(self.square, axis=1) == s)
         )
 
-    def from_rcv(self, r, c, v):
+    @staticmethod
+    def from_rcv(r, c, v):
         r = np.array(r)
         c = np.array(c)
         v = np.array(v)
-        self.square = np.ones((3, 3), dtype=np.int8) * -1
-        self.square[r.reshape(3, 3) - 1, c.reshape(3, 3) - 1] = v.reshape(3, 3)
+        n = int(np.sqrt(len(v)))
+        square = LatinSquare(n=n)
+        assert len(r) == len(c) == len(v)
+        assert len(r) == int(np.sqrt(len(r)))**2
+        square.square = np.ones((n, n), dtype=np.int8) * -1
+        square.square[
+            r.reshape(n, n) - 1,
+            c.reshape(n, n) - 1
+        ] = v.reshape(n, n)
+        return square
+
+    def as_incidence_matrix(self):
+        # Generate the equivalent 3D incidence matrix
+        xy = np.mgrid[0:self.n, 0:self.n]
+        idx = np.array([xy[0], xy[1], self.square - 1])
+        inc_matrix = np.zeros((self.n, self.n, self.n), dtype=np.int8)
+        inc_matrix[idx[2], idx[0], idx[1]] = 1
+        return inc_matrix
+
+    @staticmethod
+    def from_incidence_matrix(inc):
+        assert type(inc) == np.ndarray
+        assert inc.ndim == 3
+        n = inc.shape[0]
+        square = LatinSquare(n=n)
+        s = np.arange(n)[:, np.newaxis, np.newaxis] + 1
+        s = (s * inc).cumsum(axis=0)[-1]
+        square.square = s
+        return square
 
     def random(self):
         """
@@ -79,12 +107,7 @@ class LatinSquare(object):
         rng = np.random.default_rng()
         self.square = self.square[rng.permutation(self.n)]
         self.square = self.square[:, rng.permutation(self.n)]
-
-        # Generate the equivalent 3D incidence matrix
-        xy = np.mgrid[0:self.n, 0:self.n]
-        idx = np.array([xy[0], xy[1], self.square - 1])
-        self._i_matrix = np.zeros((self.n, self.n, self.n), dtype=np.int8)
-        self._i_matrix[idx[2], idx[0], idx[1]] = 1
+        self._i_matrix = self.as_incidence_matrix()
 
 
 if __name__ == "__main__":
