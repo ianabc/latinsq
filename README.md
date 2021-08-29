@@ -25,7 +25,7 @@ array([[1, 2, 3],
        [3, 1, 2],
        [2, 3, 1]])
 
->>>square.valid()
+>>> square.valid()
 True
 
 >>> # Generate a random square
@@ -42,20 +42,18 @@ draw a random latin square uniformly from the space of valid latin squares.
 
 ## References
 
-1. [Latin Squares](https://en.wikipedia.org/wiki/Latin_square) - Wikipedia
-   article.
-1. Generating Uniformly distributed random latin squares _Jacobson & Matthews
+1. Wikipedia article: [Latin Squares](https://en.wikipedia.org/wiki/Latin_square)
+1. Generating Uniformly distributed random latin squares - _Jacobson & Matthews_
 [doi:10.1002/(sici)1520-6610(1996)4:6<405::aid-jcd3>3.0.co;2-j](https://doi.org/10.1002%2F%28sici%291520-6610%281996%294%3A6%3C405%3A%3Aaid-jcd3%3E3.0.co%3B2-j)
-1. [susansmathgames.ca](https://susansmathgames.ca) article on [latin and euler
-squares](https://susansmathgames.ca/posts/latin-euler-squares/). Good
+1. [susansmathgames.ca](https://susansmathgames.ca) has an article on [latin and
+euler squares](https://susansmathgames.ca/posts/latin-euler-squares/) with good
 exposition on teaching with squares.
-1. Knuth, the Art of Computer Programming Volume 4A supposedly has a
+1. Knuth, The Art of Computer Programming Volume 4A supposedly has a
 discussion. I haven't seen it yet, but will probably be interesting.
-1. [Wolfram.com latin squares](https://mathworld.wolfram.com/LatinSquare.html)
-1. [Enclopedia of Mathematics](https://encyclopediaofmath.org/wiki/Latin_square)
-1. [Blog article with go implementation](https://blog.paulhankin.net/latinsquares/)
+1. [Wolfram.com latin squares](https://mathworld.wolfram.com/LatinSquare.html).
+1. [Enclopedia of Mathematics](https://encyclopediaofmath.org/wiki/Latin_square).
+1. [Blog article with go implementation](https://blog.paulhankin.net/latinsquares/). This is probably closest to the version implemented here.
 1. [SageMath Latin Square
-Implementation](https://doc.sagemath.org/html/en/reference/combinat/sage/combinat/matrices/latin.html#sage.combinat.matrices.latin.LatinSquare_generator)
-- A recent find, but if we can split out the dependencies might be very useful.
+Implementation](https://doc.sagemath.org/html/en/reference/combinat/sage/combinat/matrices/latin.html#sage.combinat.matrices.latin.LatinSquare_generator) - A recent find, but if we can split out the dependencies might be very useful.
 
 
