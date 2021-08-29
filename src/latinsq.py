@@ -162,7 +162,7 @@ class LatinSquare(object):
             inc_matrix
         ):
             iterations = iterations + 1
-            if LatinSquare.is_incidence_matrix(inc_matrix):
+            if LatinSquare.is_valid_incidence_matrix(inc_matrix):
                 while True:
                     i, j, k = rng.integers(n, size=3)
                     if inc_matrix[i, j, k] == 0:
