@@ -24,7 +24,7 @@ class LatinSquare(object):
     """
 
     def __init__(self, n=3, square=None, generate=False):
-        if square:
+        if square is not None:
             assert type(square) == np.ndarray
             assert len(square.shape) == 2
             assert square.shape[0] == square.shape[1]
