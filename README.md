@@ -1,7 +1,7 @@
 
 
 # Latin Squares
-[![Latest PyPI version](https://img.shields.io/pypi/v/latinsq?logo=pypi)](https://pypi.python.org/pypi/ianabc)
+[![Latest PyPI version](https://img.shields.io/pypi/v/latinsq?logo=pypi)](https://pypi.python.org/pypi/latinsq)
 [![GitHub Workflow Status - Test](https://img.shields.io/github/workflow/status/ianabc/latinsq/Run%20Tests?logo=github&label=tests)](https://github.com/ianabc/latinsq/actions)
 [![codecov](https://codecov.io/gh/ianabc/latinsq/branch/main/graph/badge.svg?token=SWUG5R4WR6)](https://codecov.io/gh/ianabc/latinsq)
 
